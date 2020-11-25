@@ -12,22 +12,16 @@ public class GamePanel extends JPanel implements ActionListener {
     public static final int UNIT_SIZE = 25;
     public static final int GAME_UNITS = (SCREEN_WIDTH*SCREEN_HEIGHT)/UNIT_SIZE;
     static final int DELAY = 75;
-    //snake's x and y coordinates:
- //   final int x[] = new int[GAME_UNITS];
- //   final int y[] = new int[GAME_UNITS];
-    //int bodyParts = 6;
-    //int applesEaten;
-    //int appleX;
-    //int appleY;
+
     Apple a = new Apple();
     Snake s = new Snake();
-    char direction = 'D';
+    char direction = 'D';       //starting direction: down
     static boolean running = false;
     public static Timer timer;
     public static boolean rainbow = false;
 
-
     public void newApple(){}
+
     GamePanel(){
         //random = new Random();
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -82,7 +76,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         else    gameOver(g);
     }
-    //public void newApple(){}
+
     public void move(){
       for(int i = Snake.bodyParts; i>0; i--){
           Snake.x[i] = Snake.x[i-1];
@@ -96,23 +90,33 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
     public void checkApple(){
-        Random random = new Random();
+        //Random random = new Random();
         if(Snake.x[0] == a.getX() && Snake.y[0] == a.getY()){
+            //apple is fastApple and makes the snake rainbowy and fast
             if(a.isFast){
                 rainbow = true;
-                timer = new Timer(30, this);
-                //Snake.c = new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255));
+                timer.stop();
+                timer.setDelay(50);
+                timer.restart();
+
             }
+            //apple is slowApple and makes the snake blue and slow
             else if(a.isSlow){
                 Snake.c = new Color(10, 150, 200);
                 rainbow = false;
-                timer = new Timer(100, this);
+                timer.stop();
+                timer.setDelay(100);
+                timer.restart();
             }
+            //normal apple, resets the snake
             else {
                 Snake.bodyParts++;
                 Snake.score++;
+                Snake.c = Color.GREEN;
                 rainbow = false;
-                timer = new Timer(DELAY, this);
+                timer.stop();
+                timer.setDelay(75);
+                timer.restart();
             }
             a = new Apple();
         }
@@ -125,14 +129,16 @@ public class GamePanel extends JPanel implements ActionListener {
         FontMetrics fm1 = getFontMetrics(g.getFont());
         g.drawString("GAME OVER", (SCREEN_WIDTH - fm1.stringWidth("GAME OVER"))/2, SCREEN_HEIGHT/2);
 
+        //restart button
+        JButton resetButton = new JButton();
+
+
         //displays score
         g.setColor(Color.yellow);
         g.setFont(new Font("Courier", Font.BOLD, 30));
         FontMetrics fm2 = getFontMetrics(g.getFont());
         g.drawString("SCORE: " + Snake.score, (SCREEN_WIDTH - fm2.stringWidth("SCORE: "+Snake.score))/2, (SCREEN_HEIGHT/2)+4*UNIT_SIZE);
 
-        //restart button
-        JButton button = new JButton();
         //??
     }
 

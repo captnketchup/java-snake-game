@@ -9,7 +9,6 @@ public class Apple {
     boolean isSlow = false;
     public Color c = new Color(255, 0, 0);
 
-
     Apple(){
         //gives apple a random coordinate
         random = new Random();
@@ -31,11 +30,7 @@ public class Apple {
         }
     }
 
-    public int getX(){
-        return x;
-    }
-    public int getY(){
-        return y;
-    }
+    public int getX(){ return x; }
+    public int getY(){ return y; }
 
 }

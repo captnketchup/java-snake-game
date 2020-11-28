@@ -5,7 +5,7 @@ enum Direction {UP, DOWN, LEFT, RIGHT}
 
 
 public class Snake {
-    final int x[] = new int[GamePanel.GAME_UNITS];
+    final int x[] = new int[GamePanel.GAME_UNITS];      //TODO: move to snacc contructor
     final int y[] = new int[GamePanel.GAME_UNITS];
     int bodyParts = 2;
     int score;
@@ -48,29 +48,29 @@ public class Snake {
     public int getbodyParts(){
         return bodyParts;
     }
-    public void checkCollisions(){      //checks if collision occurs:
+    public boolean checkCollisions(){      //checks if collision occurs:
         //with its body
         for(int i = bodyParts; i > 0; i--){
             if((x[0] == x[i] && y[0] == y[i])) {
-                GamePanel.setRunning(false);
+                return true;
             }
         }
         //with left border
         if(x[0] < 0)
-            GamePanel.setRunning(false);
+            return true;
 
         //with right border
         if(x[0] > GamePanel.SCREEN_WIDTH)
-            GamePanel.setRunning(false);
+            return true;
 
         //with upper border
         if(y[0] < 0)
-            GamePanel.setRunning(false);
+            return true;
 
         //with downer border
         if(y[0] > GamePanel.SCREEN_HEIGHT)
-            GamePanel.setRunning(false);
-
+            return true;
+        return false;
 //        if(!GamePanel.isRunning()){
 //            GamePanel.timer.stop();
 //        }

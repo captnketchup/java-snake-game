@@ -12,24 +12,27 @@ public class GamePanel extends JPanel implements ActionListener {
     static final int UNIT_SIZE = 25;
     static final int GAME_UNITS = (SCREEN_WIDTH*SCREEN_HEIGHT)/UNIT_SIZE;
     static final int DELAY = 75;
-    static int lastKeyPressed;
+    int lastKeyPressed;
 
+    GameFrame owner;
     Apple a;
     Snake s;
     //char direction = 'D';       //starting direction: down
-    static boolean running = false;
-    public static Timer timer;
-    public static boolean rainbow = false;
+    boolean running = false;
+    Timer timer;
+    boolean rainbow = false;
 
 //    public void newApple(){}
 
-    GamePanel(){
+    GamePanel(GameFrame inOwner){
         //random = new Random();
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setBackground(Color.black);
         this.setFocusable(true);
-//        this.addKeyListener(new MyKeyAdapter());
-        startGame();        //TODO:move to frame startgame
+        this.requestFocusInWindow();
+        this.addKeyListener(new MyKeyAdapter());
+        owner = inOwner;
+//        startGame();        //TODO:move to frame startgame
     }
     public void startGame(){
         //Apple apple = new Apple();
@@ -155,11 +158,11 @@ public class GamePanel extends JPanel implements ActionListener {
         //??
     }
 
-    public static void setRunning(boolean b){
+    public void setRunning(boolean b){
         running = b;
     }
 
-    public static boolean isRunning(){
+    public boolean isRunning(){
         return running;
     }
 
@@ -186,7 +189,10 @@ public class GamePanel extends JPanel implements ActionListener {
                 }
             s.move();
             checkApple();
-            s.checkCollisions();
+            if(s.checkCollisions()){
+                running = false;
+            }
+
         }
         //game over scenario
         else{
@@ -195,16 +201,17 @@ public class GamePanel extends JPanel implements ActionListener {
                     startGame();
                 case KeyEvent.VK_ESCAPE:
                     //TODO: return to main menu
+                    owner.setLayout(owner.getLayout()).next(owner.getContentPane()));
             }
         }
         repaint();
     }
 
-    public static class MyKeyAdapter extends KeyAdapter{
+    public class MyKeyAdapter extends KeyAdapter{
         @Override
         public void keyPressed(KeyEvent e){
             //gets controlls works via arrow keys or WASD
-            System.out.println("last key pressed lefut");
+//            System.out.println("last key pressed lefut");
             lastKeyPressed = e.getKeyCode();
         }
     }

@@ -8,7 +8,8 @@ public class GameFrame extends JFrame {
     private CardLayout layout;
     private GamePanel gamePanel;
 //    private MenuPanel menuPanel;
-    //private ScorePanel scorePanel;        //TODO: create a scoreboard
+    private ScoreboardPanel scorePanel;        //TODO: make scoreboard work
+    public Player p;
 
     GameFrame() {
         this.setTitle("Kigyosch jatek");
@@ -16,13 +17,17 @@ public class GameFrame extends JFrame {
         this.setLayout(layout);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
+//        Dimension d  = new Dimension(this.getPreferredSize().width + GamePanel.SCREEN_WIDTH, this.getPreferredSize().height + GamePanel.SCREEN_HEIGHT);
+        this.setSize(this.getPreferredSize().width + GamePanel.SCREEN_WIDTH, this.getPreferredSize().height + GamePanel.SCREEN_HEIGHT);     //gamePanel size + frame size as to not cut out fields
         setResizable(false);
         this.setLocationRelativeTo(null);
         MenuPanel menuPanel = new MenuPanel();
         this.add(menuPanel);
-        gamePanel = new GamePanel(this);
+        p = new Player("Felhasznalo Ferenc", 0);
+        gamePanel = new GamePanel(p);
         this.add(gamePanel);
+        scorePanel = new ScoreboardPanel();
+        this.add(scorePanel);
 //        gamePanel = new GamePanel();
 //        this.add(gamePanel);
         AddListeners(menuPanel);
@@ -54,7 +59,12 @@ public class GameFrame extends JFrame {
 
 //        menuPanel.settingsButton.addActionListener();
 
-//        menuPanel.scoreboardButton.addActionListener();
+        menuPanel.scoreboardButton.addActionListener(actionEvent -> {
+            scorePanel.showScoreboard();
+            layout.last(GameFrame.this.getContentPane());
+        });
+
+        this.scorePanel.backButton.addActionListener(actionEvent -> layout.first(GameFrame.this.getContentPane()));
 
     }
 

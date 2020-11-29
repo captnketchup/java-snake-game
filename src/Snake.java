@@ -60,7 +60,7 @@ public class Snake {
             return true;
 
         //with right border
-        if(x[0] > GamePanel.SCREEN_WIDTH)
+        if(x[0] > GamePanel.SCREEN_WIDTH - GamePanel.UNIT_SIZE)
             return true;
 
         //with upper border
@@ -68,7 +68,7 @@ public class Snake {
             return true;
 
         //with downer border
-        if(y[0] > GamePanel.SCREEN_HEIGHT)
+        if(y[0] > GamePanel.SCREEN_HEIGHT - GamePanel.UNIT_SIZE)
             return true;
         return false;
 //        if(!GamePanel.isRunning()){

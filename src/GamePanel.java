@@ -7,14 +7,15 @@ import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class GamePanel extends JPanel implements ActionListener {
-    static final int SCREEN_WIDTH = 600;
-    static final int SCREEN_HEIGHT = 600;
+    static final int SCREEN_WIDTH = 800;
+    static final int SCREEN_HEIGHT = 800;
     static final int UNIT_SIZE = 25;
     static final int GAME_UNITS = (SCREEN_WIDTH*SCREEN_HEIGHT)/UNIT_SIZE;
     static final int DELAY = 75;
     int lastKeyPressed;
 
-    GameFrame owner;
+//    GameFrame owner;
+    Player p;
     Apple a;
     Snake s;
     //char direction = 'D';       //starting direction: down
@@ -24,14 +25,15 @@ public class GamePanel extends JPanel implements ActionListener {
 
 //    public void newApple(){}
 
-    GamePanel(GameFrame inOwner){
+    GamePanel(Player inP){
         //random = new Random();
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setBackground(Color.black);
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.addKeyListener(new MyKeyAdapter());
-        owner = inOwner;
+        p = inP;
+//        owner = inOwner;
 //        startGame();        //TODO:move to frame startgame
     }
     public void startGame(){
@@ -42,6 +44,7 @@ public class GamePanel extends JPanel implements ActionListener {
         if(timer != null) timer.stop();         //shuts down previous timer to prevent interference
         timer = new Timer(DELAY, this);
         timer.start();
+        lastKeyPressed = 0;
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -158,16 +161,16 @@ public class GamePanel extends JPanel implements ActionListener {
         //??
     }
 
-    public void setRunning(boolean b){
-        running = b;
-    }
-
-    public boolean isRunning(){
-        return running;
-    }
+//    public void setRunning(boolean b){
+//        running = b;
+//    }
+//
+//    public boolean isRunning(){
+//        return running;
+//    }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)   {
         if(running){            //registers keyevents during game
                 switch (lastKeyPressed) {
                     case KeyEvent.VK_LEFT:
@@ -191,6 +194,9 @@ public class GamePanel extends JPanel implements ActionListener {
             checkApple();
             if(s.checkCollisions()){
                 running = false;
+                if(s.score > p.score) {
+                    p.score = s.score;
+                }
             }
 
         }
@@ -201,7 +207,7 @@ public class GamePanel extends JPanel implements ActionListener {
                     startGame();
                 case KeyEvent.VK_ESCAPE:
                     //TODO: return to main menu
-                    owner.setLayout(owner.getLayout()).next(owner.getContentPane()));
+
             }
         }
         repaint();

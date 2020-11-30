@@ -14,7 +14,6 @@ public class MenuPanel extends JPanel{
         super();
         this.setSize(GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
         this.setBackground(Color.BLACK);
-//        this.setFocusable(true);
         this.setLayout(null);
         setUpAllButtons();
 
@@ -40,7 +39,7 @@ public class MenuPanel extends JPanel{
     }
 
     private void setUpSettingsButton() {
-        settingsButton = new JButton("Settings");
+        settingsButton = new JButton("Change name");
         settingsButton.setBounds((GamePanel.SCREEN_WIDTH-200)/2, 270, 200, 50); //?
         this.add(settingsButton);
     }
@@ -50,5 +49,4 @@ public class MenuPanel extends JPanel{
         startGameButton.setBounds((GamePanel.SCREEN_WIDTH-200)/2, 200, 200, 50); //?
         this.add(startGameButton);
     }
-
 }

@@ -1,2 +1,2 @@
-30;Janosfalvi Janos
-10;Otodik Laszlo
+30
+10

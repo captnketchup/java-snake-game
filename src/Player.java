@@ -1,10 +1,8 @@
 import java.io.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.lang.*;
+import java.util.*;
 
-public class Player {
-
+public class Player implements Serializable{
     String name;
     int score;
 
@@ -15,64 +13,20 @@ public class Player {
 
     @Override
     public String toString() {
-        return score + " " + name;
+        return name + " " + score;
     }
 
-    public static ArrayList<Player> readScoreBoard() {
-        ArrayList<Player> scoreBoard = new ArrayList<>();
-        try{
-            FileReader fr = new FileReader("src/Scoreboard.txt");
-            BufferedReader br = new BufferedReader(fr);
-            for (int i = 0; i < 10; i++){
-                Player p = new Player("", 0);
-                p.loadFromText(br);
-                scoreBoard.add(p);
-                br.close();
-            }
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-        return scoreBoard;
-    }
-
-    public static void writeScoreboard(ArrayList<Player> scoreboard){
-        scoreboard.sort(Comparator.comparingInt(player -> -player.score));
-        try{
-            FileWriter fw = new FileWriter("src/Scoreboard.txt");
-            for (int i = 0; i < 10; i++){
-                scoreboard.get(i).saveToText(fw);
-            }
-            fw.close();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-
-    }
-
-    public void saveToText(FileWriter fw){
-        try{
-            fw.write(this.score + ";" + this.name + "\n");
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    public void loadFromText(BufferedReader br) {
-        String line = null;
-        try {
-            line = br.readLine();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-        if (line == null){
-            return;
-        }
-        String[] tokens = line.split(";");
-        this.score = Integer.parseInt(tokens[0]);
-        this.name = tokens[1];
-    }
+//
+//    public int compareTo(Player comparesto) {
+//        int compareScore = (comparesto.score);
+//        return this.score-compareScore;
+//    }
 }
+
+
+
+//class Sortbyscore implements Comparator<Player>{
+//    public int compare(Player a, Player b){
+//        return Integer.compare(a.score, b.score);
+//    }
+//}

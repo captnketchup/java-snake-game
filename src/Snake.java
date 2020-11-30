@@ -71,8 +71,5 @@ public class Snake {
         if(y[0] > GamePanel.SCREEN_HEIGHT - GamePanel.UNIT_SIZE)
             return true;
         return false;
-//        if(!GamePanel.isRunning()){
-//            GamePanel.timer.stop();
-//        }
     }
 }

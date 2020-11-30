@@ -19,12 +19,12 @@ public class Apple {
         int n = (r.nextInt(10));
 
         //go fast apple
-        if(n < 2) {
+        if(n < 1) {
             isFast = true;
             c = Color.yellow;
         }
         //go slow apple
-        else if(n < 4) {
+        else if(n < 2) {
             isSlow = true;
             c = Color.blue;
         }

@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements ActionListener {
     JButton backToMenuButton;
 
 
-    GamePanel(Player in_p) {
+    GamePanel() {
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setBackground(Color.black);
         this.setFocusable(true);
@@ -34,8 +34,11 @@ public class GamePanel extends JPanel implements ActionListener {
         backToMenuButton = new JButton("Quit to menu");
         this.add(backToMenuButton);
         backToMenuButton.setBounds(SCREEN_WIDTH / 2 - 150, (SCREEN_HEIGHT / 2) + 10 * UNIT_SIZE, 300, 100);
+        // backToMenuButton.setLocation(0,0);
+    }
+
+    public void setPlayer(Player in_p){
         p = in_p;
-       // backToMenuButton.setLocation(0,0);
     }
 
     public void startGame() {
@@ -88,7 +91,6 @@ public class GamePanel extends JPanel implements ActionListener {
         } else {
             gameOver(g);
         }
-        ;
     }
 
     public void checkApple() {
@@ -135,7 +137,6 @@ public class GamePanel extends JPanel implements ActionListener {
         g.setFont(new Font("Helvetica", Font.ITALIC, 20));
         FontMetrics fm2 = getFontMetrics(g.getFont());
         g.drawString("PRESS ENTER TO REPLAY", (SCREEN_WIDTH - fm2.stringWidth("PRESS ENTER TO REPLAY")) / 2, (SCREEN_HEIGHT / 2) + 8 * UNIT_SIZE);
-        //g.drawString("PRESS ESC TO GO TO MAIN MENU", (SCREEN_WIDTH - fm2.stringWidth("PRESS ESC TO GO TO MAIN MENU"))/2, (SCREEN_HEIGHT/2)+10*UNIT_SIZE);
         backToMenuButton.setVisible(true);
 
         //displays score
@@ -176,12 +177,11 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         //game over scenario
         else {
-            if(s.score > p.score){
+            if (s.score > p.score) {
                 p.score = s.score;
             }
             switch (lastKeyPressed) {
-                case KeyEvent.VK_ENTER:
-                    startGame();
+                case KeyEvent.VK_ENTER -> startGame();
             }
         }
         repaint();

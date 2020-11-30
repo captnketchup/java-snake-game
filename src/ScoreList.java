@@ -2,22 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class ScoreList implements Serializable {
-    public ArrayList<Player> data = new ArrayList<Player>();
-
-    public void add(Player player) {
-        data.add(player);
-    }
-    public void writeScoreboard(String fname) {
-        try {
-            FileOutputStream fs = new FileOutputStream(fname);
-            ObjectOutputStream os = new ObjectOutputStream(fs);
-            os.writeObject(this);
-            os.close();
-            fs.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    public ArrayList<Player> data = new ArrayList<>();
 
     public static ScoreList readScoreboard(String fname) {
         ScoreList scoreList = new ScoreList();
@@ -32,5 +17,21 @@ public class ScoreList implements Serializable {
             e.printStackTrace();
         }
         return scoreList;
+    }
+
+    public void add(Player player) {
+        data.add(player);
+    }
+
+    public void writeScoreboard(String fname) {
+        try {
+            FileOutputStream fs = new FileOutputStream(fname);
+            ObjectOutputStream os = new ObjectOutputStream(fs);
+            os.writeObject(this);
+            os.close();
+            fs.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

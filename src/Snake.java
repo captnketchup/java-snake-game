@@ -1,23 +1,24 @@
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 enum Direction {UP, DOWN, LEFT, RIGHT}
 
 
 public class Snake {
-    final int x[] = new int[GamePanel.GAME_UNITS];      //TODO: move to snacc contructor
-    final int y[] = new int[GamePanel.GAME_UNITS];
+    final int[] x = new int[GamePanel.GAME_UNITS];
+    final int[] y = new int[GamePanel.GAME_UNITS];
     int bodyParts = 2;
     int score;
     Color c = new Color(69, 255, 69);
     Direction direction = Direction.DOWN;
     Direction nextDirection;
 
-    Snake(){}
-    public void changeDirection(Direction inDirection){
+    Snake() {
+    }
+
+    public void changeDirection(Direction inDirection) {
         switch (direction) {
             case LEFT:
-                if (inDirection != Direction.RIGHT ) nextDirection = inDirection;
+                if (inDirection != Direction.RIGHT) nextDirection = inDirection;
                 break;
             case RIGHT:
                 if (inDirection != Direction.LEFT) nextDirection = inDirection;
@@ -31,11 +32,11 @@ public class Snake {
         }
     }
 
-    public void move(){
+    public void move() {
         //shifts body parts one by one
-        for(int i = bodyParts; i>0; i--){
-            x[i] = x[i-1];
-            y[i] = y[i-1];
+        for (int i = bodyParts; i > 0; i--) {
+            x[i] = x[i - 1];
+            y[i] = y[i - 1];
         }
         switch (direction) {
             case UP -> y[0] = y[0] - GamePanel.UNIT_SIZE;
@@ -45,31 +46,30 @@ public class Snake {
         }
     }
 
-    public int getbodyParts(){
+    public int getbodyParts() {
         return bodyParts;
     }
-    public boolean checkCollisions(){      //checks if collision occurs:
+
+    public boolean checkCollisions() {      //checks if collision occurs:
         //with its body
-        for(int i = bodyParts; i > 0; i--){
-            if((x[0] == x[i] && y[0] == y[i])) {
+        for (int i = bodyParts; i > 0; i--) {
+            if ((x[0] == x[i] && y[0] == y[i])) {
                 return true;
             }
         }
         //with left border
-        if(x[0] < 0)
+        if (x[0] < 0)
             return true;
 
         //with right border
-        if(x[0] > GamePanel.SCREEN_WIDTH - GamePanel.UNIT_SIZE)
+        if (x[0] > GamePanel.SCREEN_WIDTH - GamePanel.UNIT_SIZE)
             return true;
 
         //with upper border
-        if(y[0] < 0)
+        if (y[0] < 0)
             return true;
 
         //with downer border
-        if(y[0] > GamePanel.SCREEN_HEIGHT - GamePanel.UNIT_SIZE)
-            return true;
-        return false;
+        return y[0] > GamePanel.SCREEN_HEIGHT - GamePanel.UNIT_SIZE;
     }
 }

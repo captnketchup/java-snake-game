@@ -3,11 +3,11 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 
 public class GameFrame extends JFrame {
-    private CardLayout layout;
-    private GamePanel gamePanel;
     //    private MenuPanel menuPanel;
     public ScoreboardPanel scorePanel;
     public Player p;
+    private final CardLayout layout;
+    private final GamePanel gamePanel;
 
     GameFrame() {
         //init frame attributes
@@ -22,10 +22,9 @@ public class GameFrame extends JFrame {
         MenuPanel menuPanel = new MenuPanel();
         this.add(menuPanel, "MENU");
         p = new Player("Felhasznalo Ferenc", 0);
-        gamePanel = new GamePanel(p);
+        gamePanel = new GamePanel();
         this.add(gamePanel, "GAME");
         scorePanel = new ScoreboardPanel();
-//        scorePanel = scorePanel.readScoreboard("src/Scoreboard.ser");
         this.add(scorePanel, "SCORE");
         AddListeners(menuPanel);
         this.pack();
@@ -34,48 +33,47 @@ public class GameFrame extends JFrame {
     //menu actionlisteners:
     private void AddListeners(MenuPanel menuPanel) {
         /*
-        * MENU
-        * */
+         * MENU
+         * */
         menuPanel.eXitButton.addActionListener(actionEvent -> {
             scorePanel.scoreList.writeScoreboard("src/Scoreboard.ser");
             GameFrame.this.processWindowEvent(new WindowEvent(GameFrame.this, WindowEvent.WINDOW_CLOSING));
         });
 
         menuPanel.startGameButton.addActionListener(actionEvent -> {
-//            layout.next(GameFrame.this.getContentPane());
             layout.show(GameFrame.this.getContentPane(), "GAME");
             gamePanel.requestFocusInWindow();
+            p = new Player(p.name, 0);
+            gamePanel.setPlayer(p);
             gamePanel.startGame();
         });
 
-        menuPanel.settingsButton.addActionListener(action-> {
+        menuPanel.settingsButton.addActionListener(action -> {
             String newName = actionPerformed(action);
-            p.name = newName;
+            p = new Player(newName, 0);
         });
 
         /*
-        * SCOREBOARD
-        * */
+         * SCOREBOARD
+         * */
         menuPanel.scoreboardButton.addActionListener(actionEvent -> {
             scorePanel.refreshScoreboard();
-//            layout.last(GameFrame.this.getContentPane());
             layout.show(GameFrame.this.getContentPane(), "SCORE");
         });
 
         this.scorePanel.backButton.addActionListener(actionEvent -> layout.first(GameFrame.this.getContentPane()));
 
         /*
-        * GAMEPANEL
-        * */
+         * GAMEPANEL
+         * */
         this.gamePanel.backToMenuButton.addActionListener(actionEvent -> {
-//                    layout.first(GameFrame.this.getContentPane());
                     layout.show(GameFrame.this.getContentPane(), "MENU");
                     scorePanel.scoreList.add(p);
                 }
         );
     }
 
-    public String actionPerformed(java.awt.event.ActionEvent evt){
+    public String actionPerformed(java.awt.event.ActionEvent evt) {
         return JOptionPane.showInputDialog(this, "Input name", null);
     }
 }

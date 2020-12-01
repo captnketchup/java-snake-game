@@ -25,14 +25,10 @@ public class ScoreboardPanel extends JPanel {
 
 
     public void refreshScoreboard() {
-        scoreList.data.sort((player1, player2) -> {            //sorts arraylist by score values
-            return player2.score - player1.score;
-        });
-
-
+        scoreList.sort();
         listModel.clear();
-        for (int i = 0; i < 10 && i < scoreList.data.size(); i++) {
-            listModel.addElement(scoreList.data.get(i).toString());
+        for (int i = 0; i < 10 && i < scoreList.size(); i++) {
+            listModel.addElement(scoreList.get(i).toString());
         }
     }
 

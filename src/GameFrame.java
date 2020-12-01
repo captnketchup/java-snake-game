@@ -65,13 +65,13 @@ public class GameFrame extends JFrame {
             layout.show(this.getContentPane(), "SCORE");
         });
 
-        this.scorePanel.backButton.addActionListener(actionEvent -> layout.first(GameFrame.this.getContentPane()));
+        this.scorePanel.backButton.addActionListener(actionEvent -> layout.first(this.getContentPane()));
 
         /*
          * GAMEPANEL
          * */
         this.gamePanel.backToMenuButton.addActionListener(actionEvent -> {
-                    layout.show(GameFrame.this.getContentPane(), "MENU");
+                    layout.show(this.getContentPane(), "MENU");
                     scorePanel.scoreList.add(p);
                 }
         );

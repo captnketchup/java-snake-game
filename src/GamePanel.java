@@ -14,7 +14,6 @@ public class GamePanel extends JPanel implements ActionListener {
     static final int DELAY = 75;
     int lastKeyPressed;
 
-
     Player p;
     Apple a;
     Snake s;
@@ -177,8 +176,8 @@ public class GamePanel extends JPanel implements ActionListener {
             if (s.score > p.score) {
                 p.score = s.score;
             }
-            switch (lastKeyPressed) {
-                case KeyEvent.VK_ENTER -> startGame();
+            if (lastKeyPressed == KeyEvent.VK_ENTER) {
+                startGame();
             }
         }
         repaint();

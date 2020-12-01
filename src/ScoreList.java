@@ -1,8 +1,12 @@
 import java.io.*;
 import java.util.ArrayList;
 
-public class ScoreList implements Serializable {
-    public ArrayList<Player> data = new ArrayList<>();
+public class ScoreList extends ArrayList<Player> implements Serializable {
+    public void sort(){
+        this.sort((player1, player2) -> {            //sorts arraylist by score values
+            return player2.score - player1.score;
+        });
+    }
 
     public static ScoreList readScoreboard(String fname) {
         ScoreList scoreList = new ScoreList();
@@ -17,10 +21,6 @@ public class ScoreList implements Serializable {
             e.printStackTrace();
         }
         return scoreList;
-    }
-
-    public void add(Player player) {
-        data.add(player);
     }
 
     public void writeScoreboard(String fname) {

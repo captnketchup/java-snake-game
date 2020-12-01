@@ -75,15 +75,14 @@ public class GamePanel extends JPanel implements ActionListener {
                 //if head of snake
                 if (i == 0) {
                     g.setColor(Color.YELLOW);
-                    g.fillRect(s.x[i], s.y[i], UNIT_SIZE, UNIT_SIZE);
                 } else {
                     if (rainbow) {
                         g.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
                     } else {
                         g.setColor(s.c);
                     }
-                    g.fillRect(s.x[i], s.y[i], UNIT_SIZE, UNIT_SIZE);
                 }
+                g.fillRect(s.x[i], s.y[i], UNIT_SIZE, UNIT_SIZE);
             }
 
         } else {

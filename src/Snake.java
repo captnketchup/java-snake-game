@@ -6,12 +6,15 @@ enum Direction {UP, DOWN, LEFT, RIGHT}
 public class Snake {
     final int[] x = new int[GamePanel.GAME_UNITS];
     final int[] y = new int[GamePanel.GAME_UNITS];
-    int bodyParts = 2;
+    int bodyParts;
     int score;
-    Color c = new Color(69, 255, 69);
-    Direction direction = Direction.DOWN;
+    Color c;
+    Direction direction;
 
     Snake() {
+        bodyParts = 2;
+        c = new Color(69, 255, 69);
+        direction = Direction.DOWN;
     }
 
     public void move() {

@@ -8,6 +8,7 @@ public class Apple {
     Random random;
     boolean isFast = false;
     boolean isSlow = false;
+    int n;
 
     Apple() {
         //gives apple a random coordinate
@@ -16,7 +17,7 @@ public class Apple {
         y = random.nextInt(GamePanel.SCREEN_HEIGHT / GamePanel.UNIT_SIZE) * GamePanel.UNIT_SIZE;
         //generates a random number, so it may result in special apple
         Random r = new Random();
-        int n = (r.nextInt(10));
+        n = (r.nextInt(10));
 
         //go fast apple
         if (n < 1) {

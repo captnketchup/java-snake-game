@@ -5,9 +5,9 @@ import java.awt.event.WindowEvent;
 public class GameFrame extends JFrame {
     private final CardLayout layout;
     private final GamePanel gamePanel;
-    //    private MenuPanel menuPanel;
-    public ScoreboardPanel scorePanel;
-    public Player p;
+    private final MenuPanel menuPanel;
+    private final ScoreboardPanel scorePanel;
+    private Player p;
 
     GameFrame() {
         //init frame attributes
@@ -19,7 +19,7 @@ public class GameFrame extends JFrame {
         this.setSize(this.getPreferredSize().width + GamePanel.SCREEN_WIDTH, this.getPreferredSize().height + GamePanel.SCREEN_HEIGHT);     //gamePanel size + frame size as to not cut out fields
         setResizable(false);
         this.setLocationRelativeTo(null);
-        MenuPanel menuPanel = new MenuPanel();
+        menuPanel = new MenuPanel();
         this.add(menuPanel, "MENU");
         p = new Player("Felhasznalo Ferenc", 0);
         gamePanel = new GamePanel();
@@ -37,11 +37,11 @@ public class GameFrame extends JFrame {
          * */
         menuPanel.eXitButton.addActionListener(actionEvent -> {
             scorePanel.scoreList.writeScoreboard("src/Scoreboard.ser");
-            GameFrame.this.processWindowEvent(new WindowEvent(GameFrame.this, WindowEvent.WINDOW_CLOSING));
+            this.processWindowEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         });
 
         menuPanel.startGameButton.addActionListener(actionEvent -> {
-            layout.show(GameFrame.this.getContentPane(), "GAME");
+            layout.show(this.getContentPane(), "GAME");
             gamePanel.requestFocusInWindow();
             p = new Player(p.name, 0);
             gamePanel.setPlayer(p);
@@ -62,7 +62,7 @@ public class GameFrame extends JFrame {
          * */
         menuPanel.scoreboardButton.addActionListener(actionEvent -> {
             scorePanel.refreshScoreboard();
-            layout.show(GameFrame.this.getContentPane(), "SCORE");
+            layout.show(this.getContentPane(), "SCORE");
         });
 
         this.scorePanel.backButton.addActionListener(actionEvent -> layout.first(GameFrame.this.getContentPane()));

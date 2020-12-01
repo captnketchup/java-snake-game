@@ -43,7 +43,6 @@ public class ScoreboardPanel extends JPanel {
         title.setForeground(Color.WHITE);
         boxLayout.setBackground(Color.BLACK);
         title.setFont(new Font("Courier", Font.PLAIN, 50));
-        FontMetrics fm = getFontMetrics(title.getFont());
         title.setHorizontalAlignment(SwingConstants.CENTER);
         boxLayout.add(title);
         this.add(boxLayout);

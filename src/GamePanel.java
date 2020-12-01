@@ -14,7 +14,7 @@ public class GamePanel extends JPanel implements ActionListener {
     static final int DELAY = 75;
     int lastKeyPressed;
 
-    //    GameFrame owner;
+
     Player p;
     Apple a;
     Snake s;
@@ -34,10 +34,9 @@ public class GamePanel extends JPanel implements ActionListener {
         backToMenuButton = new JButton("Quit to menu");
         this.add(backToMenuButton);
         backToMenuButton.setBounds(SCREEN_WIDTH / 2 - 150, (SCREEN_HEIGHT / 2) + 10 * UNIT_SIZE, 300, 100);
-        // backToMenuButton.setLocation(0,0);
     }
 
-    public void setPlayer(Player in_p){
+    public void setPlayer(Player in_p) {
         p = in_p;
     }
 
@@ -80,11 +79,10 @@ public class GamePanel extends JPanel implements ActionListener {
                 } else {
                     if (rainbow) {
                         g.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
-                        g.fillRect(s.x[i], s.y[i], UNIT_SIZE, UNIT_SIZE);
                     } else {
                         g.setColor(s.c);
-                        g.fillRect(s.x[i], s.y[i], UNIT_SIZE, UNIT_SIZE);
                     }
+                    g.fillRect(s.x[i], s.y[i], UNIT_SIZE, UNIT_SIZE);
                 }
             }
 

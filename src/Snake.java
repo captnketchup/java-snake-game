@@ -10,26 +10,8 @@ public class Snake {
     int score;
     Color c = new Color(69, 255, 69);
     Direction direction = Direction.DOWN;
-    Direction nextDirection;
 
     Snake() {
-    }
-
-    public void changeDirection(Direction inDirection) {
-        switch (direction) {
-            case LEFT:
-                if (inDirection != Direction.RIGHT) nextDirection = inDirection;
-                break;
-            case RIGHT:
-                if (inDirection != Direction.LEFT) nextDirection = inDirection;
-                break;
-            case UP:
-                if (inDirection != Direction.DOWN) nextDirection = inDirection;
-                break;
-            case DOWN:
-                if (inDirection != Direction.UP) nextDirection = inDirection;
-                break;
-        }
     }
 
     public void move() {
@@ -44,10 +26,6 @@ public class Snake {
             case LEFT -> x[0] = x[0] - GamePanel.UNIT_SIZE;
             case RIGHT -> x[0] = x[0] + GamePanel.UNIT_SIZE;
         }
-    }
-
-    public int getbodyParts() {
-        return bodyParts;
     }
 
     public boolean checkCollisions() {      //checks if collision occurs:

@@ -3,11 +3,11 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 
 public class GameFrame extends JFrame {
+    private final CardLayout layout;
+    private final GamePanel gamePanel;
     //    private MenuPanel menuPanel;
     public ScoreboardPanel scorePanel;
     public Player p;
-    private final CardLayout layout;
-    private final GamePanel gamePanel;
 
     GameFrame() {
         //init frame attributes
@@ -50,7 +50,11 @@ public class GameFrame extends JFrame {
 
         menuPanel.settingsButton.addActionListener(action -> {
             String newName = actionPerformed(action);
+            String oldName = p.name;
             p = new Player(newName, 0);
+            if (p.name == null) {
+                p.name = oldName;
+            }
         });
 
         /*
